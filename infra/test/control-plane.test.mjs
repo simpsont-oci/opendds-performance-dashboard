@@ -63,3 +63,14 @@ test('named environments are carried through orchestration without replacing the
   assert.notEqual(hashInput, '');
   assert.doesNotMatch(hashInput, /environmentName/);
 });
+
+test('automation provenance is carried separately from the tested OpenDDS commit', () => {
+  const source = require('node:fs').readFileSync(require.resolve('../lib/control-plane-stack.ts'), 'utf8');
+  const coordinator = require('node:fs').readFileSync(require.resolve('../lambda/coordinator/index.mjs'), 'utf8');
+  assert.match(source, /'automationCommit\.\$': '\$\.automationCommit'/);
+  assert.match(source, /AUTOMATION_COMMIT: \{value: sfn\.JsonPath\.stringAt\('\$\.automationCommit'\)\}/);
+  assert.match(source, /automationCommit="\$AUTOMATION_COMMIT"/);
+  assert.match(coordinator, /automationCommit: input\.automationCommit/);
+  const hashInput = coordinator.match(/const environmentHash = input =>([\s\S]*?)\.digest\('hex'\)/)?.[1] ?? '';
+  assert.doesNotMatch(hashInput, /automationCommit/);
+});

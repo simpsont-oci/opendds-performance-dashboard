@@ -280,6 +280,14 @@ Its initial nightly configuration revision is
 `PERFORMANCE_NIGHTLY_COMMIT` GitHub variable.
 Dynamic multicast runs remain diagnostics and receive a distinct hash.
 
+Manual workflow dispatches may provide a full `opendds_commit` SHA. That one
+resolved revision controls the source checkout, release-bundle object key, AWS
+submission, and dashboard OpenDDS commit, allowing configuration experiments
+to reuse an existing binary without mislabeling it. Automatic push and
+scheduled runs always test `github.sha`. Results separately record the
+`Automation Commit` that supplied the workflow, and automation-only revisions
+do not change the comparable-environment hash.
+
 The UI limits a chart selection to one environment key so recovered centipede
 results and AWS measurements are preserved without implying direct hardware or
 network comparability.

@@ -13,6 +13,7 @@ function runContext(overrides = {}) {
     runId: 'test-run',
     suite: 'validation',
     commitSha: 'abc123',
+    automationCommit: 'def456',
     configCommit: 'def456',
     environmentName: 'aws-bench-v1',
     instanceType: 'c7i.large',

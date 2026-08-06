@@ -4,7 +4,8 @@
 parameterized and must only be deployed by the Step Functions workflow or for a
 validation run. It creates hourly-billed Transit Gateway and EC2 resources.
 
-Required run context values are `runId`, `suite`, `commitSha`, `configCommit`,
+Required run context values are `runId`, `suite`, `commitSha`,
+`automationCommit`, `configCommit`,
 `instanceType`, `amiId`, `availabilityZone`, `artifactKey`, and `configKey`.
 The run stack reads the base VPC, subnet, security group, bucket, and table from
 stage-specific SSM parameters.

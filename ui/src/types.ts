@@ -100,6 +100,7 @@ export type Run = {
   key: BenchmarkIdentifier;
   date: string;
   commit: GitSha;
+  automationCommit?: GitSha;
   hash?: BuildHash;
   errors: number;
   era?: 'centipede' | 'aws' | string;

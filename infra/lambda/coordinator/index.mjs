@@ -46,6 +46,10 @@ async function bodyAsJson(body) {
 }
 
 async function acquire(input) {
+  if (!/^[0-9a-f]{40}$/.test(input.commitSha ?? '') ||
+      !/^[0-9a-f]{40}$/.test(input.automationCommit ?? '')) {
+    throw new Error('commitSha and automationCommit must be full Git commit SHAs');
+  }
   if (!/^[a-z][a-z0-9-]{0,31}$/.test(input.environmentName ?? '')) {
     throw new Error('environmentName must be a lowercase version identifier');
   }
@@ -116,7 +120,8 @@ async function acquire(input) {
     TableName: tableName,
     Item: {
       pk: 'RUN', sk: runId, runId, date: timestamp, commit: input.commitSha,
-      configCommit: input.configCommit, environmentName: input.environmentName,
+      automationCommit: input.automationCommit, configCommit: input.configCommit,
+      environmentName: input.environmentName,
       suite: input.suite, topology: input.topology,
       multicastRegistration: input.dynamicMulticastRegistration ? 'dynamic' : 'static',
       hash, era: 'aws', status: 'QUEUED', errors: 0, estimatedCostUsd: estimatedCost,
@@ -181,10 +186,10 @@ async function publish(input) {
     exclusiveStartKey = runs.LastEvaluatedKey;
   } while (exclusiveStartKey);
   const index = runItems.map(({
-    runId: key, date, commit, hash, errors, era, environmentName, suite, topology, status,
+    runId: key, date, commit, automationCommit, hash, errors, era, environmentName, suite, topology, status,
     multicastRegistration, staticMulticastRegistration,
   }) => ({
-    key, date, commit, hash, errors, era, environmentName, suite, topology, status,
+    key, date, commit, automationCommit, hash, errors, era, environmentName, suite, topology, status,
     multicastRegistration: multicastRegistration ??
       (era === 'aws' ? (staticMulticastRegistration ? 'static' : 'dynamic') : undefined),
   }))
