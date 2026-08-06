@@ -33,6 +33,7 @@ The supported automatic topologies are:
 | large-message | 3 | 1 | 2 |
 | relay-diagnostic | 3 | 1 | 1 |
 | fan-diagnostic | 12 | 4 | 1 |
+| service-discovery-diagnostic | 12 | 4 | 2 |
 | standard | 6 | 2 | 7 |
 | core | 12 | 4 | 11 |
 | full | 30 | 4 | 69 |

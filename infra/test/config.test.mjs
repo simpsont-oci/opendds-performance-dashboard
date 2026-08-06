@@ -44,6 +44,10 @@ test('fan diagnostics preserve the core topology for comparable worker placement
   assert.deepEqual(TOPOLOGIES['fan-diagnostic'], {legCount: 12, coresPerLeg: 4});
 });
 
+test('service-discovery diagnostics preserve the core topology for comparable placement', () => {
+  assert.deepEqual(TOPOLOGIES['service-discovery-diagnostic'], {legCount: 12, coresPerLeg: 4});
+});
+
 test('standard suite adds moderate scale without the core-suite cost jump', () => {
   assert.deepEqual(TOPOLOGIES.standard, {legCount: 6, coresPerLeg: 2});
 });
