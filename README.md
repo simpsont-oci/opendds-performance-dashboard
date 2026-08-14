@@ -288,6 +288,18 @@ scheduled runs always test `github.sha`. Results separately record the
 `Automation Commit` that supplied the workflow, and automation-only revisions
 do not change the comparable-environment hash.
 
+### Deferred automation policy
+
+Before enabling automatic performance runs, add a conservative, unit-tested
+changed-path classifier. It should skip a merge only when every changed file is
+known to be non-runtime work (for example documentation, GitHub Actions, or
+test-only files), default ambiguous changes to the `standard` suite, and allow
+reviewed `performance-test:force`, `performance-test:skip`, and optionally
+`performance-test:core` PR-label overrides. A weekly `core` run should also be
+skipped when no relevant OpenDDS commit has landed since the previous
+successful core run. Keep `full` manual until its cost is measured and the
+account has at least the 248 Standard vCPUs required by its current topology.
+
 The UI limits a chart selection to one environment key so recovered centipede
 results and AWS measurements are preserved without implying direct hardware or
 network comparability.
