@@ -280,6 +280,15 @@ Its initial nightly configuration revision is
 `PERFORMANCE_NIGHTLY_COMMIT` GitHub variable.
 Dynamic multicast runs remain diagnostics and receive a distinct hash.
 
+The current fork demonstration baseline is `aws-bench-v2`. It retains the v1
+AMI, Availability Zone, instance mappings, and static-registration default,
+and pins nightly revision
+`c1150344d5abc021fafe31fe53e6efe5e84c9c9f`. Its standard suite expands the
+discovery, echo-payload, and fan curves to the 14 scenarios listed above. The
+three demonstration runs for OpenDDS revisions `a4c41da1536e`, `7a6a0e8d6b4d`,
+and `a378c9fac0ca` share environment hash
+`463831891a98fa84877999262bf67a2f`.
+
 Manual workflow dispatches may provide a full `opendds_commit` SHA. That one
 resolved revision controls the source checkout, release-bundle object key, AWS
 submission, and dashboard OpenDDS commit, allowing configuration experiments
